@@ -129,7 +129,10 @@
                         for(let j=0;j<9;j++){
                             document.getElementsByClassName("but")[j].style.color=(canPush[placex+placey*3][j]==0)?"white":"black";
                         }
-                        if(placex===1&&placey===1)document.getElementById("answer").style.display="block";
+                        if(placex===1&&placey===1){
+                            document.getElementById("answer").value="";
+                            document.getElementById("answer").style.display="block";
+                        }
                         else document.getElementById("answer").style.display="none";
                         document.getElementById("monitor").style.backgroundColor=backC(placex+placey*3,turn);
                         // console.log("turn:",turn+1," placex:",placex," placey:",placey,"color",backC(placex+placey*3,turn));
@@ -139,7 +142,7 @@
             
         }
         function ans(e){
-            if(e.target.value==6){
+            if(document.getElementById("answer").value==6){
                 document.getElementById("text").innerHTML = "Clear!";
             }
             else{
