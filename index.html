@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        body{
+            height:100vh;
+            width:56vw;
+            margin:0 22vw 0;
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #monitor{
+            width:30vw;
+            height:30vw;
+            border-radius:30vw;
+            border:0.3vw black solid;
+        }
+        #control{
+            width:21vw;
+            display:flex;
+            flex-direction: column;
+        }
+        .row{
+            height:7vw;
+            display:flex;
+        }
+        .but{
+            width:6vw;
+            height:6vw;
+            margin:0.5vw;
+            border:0.2vw black solid;
+            box-sizing: border-box;
+            font-size:4vw;
+            text-align:center;
+            line-height:6vw;
+        }
+        #answer{
+            border:none;
+            width:20vw;
+            height:6vw;
+            margin:0 auto;
+        }
+        #text{
+            color:white;
+            height:4vw;
+            font-size:3vw;
+            margin:4vw auto;
+        }
+        #monitor{
+            background-color: red;
+            display:flex;
+            flex-direction: column;
+        }
+    </style>
+    <script>
+        let text = [
+            ["*i*wvb",
+            "",
+            "**thae"],
+            ["*****h",
+            "1*h*l*",
+            "",
+            "*****i"],
+            ["**eaun",
+            "",
+            "*s*ted"]
+        ];
+        let map = [
+            1,0,3,
+            2,4,2,
+            3,0,3
+        ]
+        let canPush = [
+            [0,0,0,
+            0,0,0,
+            0,1,1],
+            [0,0,0,
+            1,0,1,
+            1,1,1],
+            [0,0,0,
+            0,0,0,
+            1,1,0],
+            [0,1,0,
+            0,0,1,
+            0,1,0],
+            [0,1,0,
+            1,0,1,
+            0,1,0],
+            [0,1,0,
+            1,0,0,
+            0,1,0],
+            [0,1,1,
+            0,0,0,
+            0,0,0],
+            [1,1,1,
+            1,0,1,
+            0,0,0],
+            [1,1,0,
+            0,0,0,
+            0,0,0]
+        ]
+        let movex = [
+            -1,0,1,
+            -1,0,1,
+            -1,0,1
+        ]
+        let movey = [
+            -1,-1,-1,
+            0,0,0,
+            1,1,1
+        ]
+        let turn=0,placex=1,placey=1;
+        window.onload = function(){
+            for(let i=0;i<9;i++){
+                document.getElementsByClassName("but")[i].addEventListener("click",function(){
+                    if(canPush[placex+placey*3][i]===1){
+                        turn=(turn+1)%6;
+                        placex = placex+movex[i];
+                        placey = placey+movey[i];
+                        document.getElementById("text").innerHTML = text[placex][placey];
+                        for(let j=0;j<9;j++){
+                            document.getElementsByClassName("but")[j].style.color=(canPush[placex+placey*3][j]==0)?"white":"black";
+                        }
+                        if(placex===1&&placey===1)document.getElementById("answer").style.display="block";
+                        else document.getElementById("answer").style.display="none";
+                        document.getElementById("monitor").style.backgroundColor=backC(placex+placey*3,turn);
+                        // console.log("turn:",turn+1," placex:",placex," placey:",placey,"color",backC(placex+placey*3,turn));
+                    }
+                });
+            }
+        }
+        function backC(place,i){
+            console.log("map:",map[place]);
+            if(map[place]===1&&(i%8)/4+i%2>=1)return "black";
+            if(map[place]===2&&(i%8)/4+i%2>=2)return "black";
+            if(map[place]===3&&(i%8)/4+(i%4)/2>=1)return "black";
+            if(map[place]===4&&i%2==0)if(i%8==0)return "red";else return "black";
+            else return "white";
+        }
+    </script>
+</head>
+<body>
+    <div id="monitor">
+        <div id="text">1*h*l*</div>
+        <input type="text" id="answer">
+    </div>
+    <div id="control">
+        <div class="row">
+            <div class="but">↖</div>
+            <div class="but" style="color:white">↑</div>
+            <div class="but">↗</div>
+        </div>
+        <div class="row">
+            <div class="but">←</div>
+            <div class="but"></div>
+            <div class="but">→</div>
+        </div>
+        <div class="row">
+            <div class="but">↙</div>
+            <div class="but" style="color:white">↓</div>
+            <div class="but">↘</div>
+        </div>
+    </div>
+</body>
+</html>
