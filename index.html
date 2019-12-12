@@ -59,14 +59,17 @@
     </style>
     <script>
         let text = [
-            ["*i*wvb",
+            [
+            "*i*wvb",
             "",
             "**thae"],
-            ["*****h",
+            [
+            "*****h",
             "1*h*l*",
             "",
             "*****i"],
-            ["**eaun",
+            [
+            "**eaun",
             "",
             "*s*ted"]
         ];
@@ -132,6 +135,15 @@
                         // console.log("turn:",turn+1," placex:",placex," placey:",placey,"color",backC(placex+placey*3,turn));
                     }
                 });
+            }
+            
+        }
+        function ans(e){
+            if(e.target.value==6){
+                document.getElementById("text").innerHTML = "Clear!";
+            }
+            else{
+                document.getElementById("text").innerHTML = "Wrong!";
             }
         }
         function backC(place,i){
